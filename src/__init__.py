@@ -28,6 +28,7 @@ class User(db.Model):
         self.username = username
         self.email = email
 
+
 # endpoint
 class Ping(Resource):
     def get(self):
