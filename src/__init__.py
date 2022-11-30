@@ -1,7 +1,6 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from src.api.ping import ping_blueprint
 
 
 # instantiate db
@@ -18,7 +17,10 @@ def create_app(script_info=None):
     db.init_app(app)
 
     # register blueprints
+    from src.api.ping import ping_blueprint
     app.register_blueprint(ping_blueprint)
+    from src.api.users import users_blueprint
+    app.register_blueprint(users_blueprint)
 
     # register app and db with the shell
     @app.shell_context_processor
