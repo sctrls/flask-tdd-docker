@@ -17,4 +17,9 @@ class TestingConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    # fix for sqlalchemy 14 not supporting postgres://
+    url = os.environ.get('DATABASE_URL')
+    if url is not None and url.startswith('postgres://'):
+        url = url.replace('postgres://', 'postgresql://', 1)
+
+    SQLALCHEMY_DATABASE_URI = url

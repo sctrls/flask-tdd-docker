@@ -1,0 +1,22 @@
+FROM python:3.10.3-slim-buster
+
+WORKDIR /usr/src/app
+
+ENV PYTHON DONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV FLASK_ENV production
+ENV APP_SETTINGS src.config.ProductionConfig
+
+RUN apt-get update\
+  && apt-get -y install netcat gcc postgresql\
+  && apt-get clean
+
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+RUN adduser --disabled-password myuser
+USER myuser
+
+CMD gunicorn --bind 0.0.0.0:$PORT manage:app
