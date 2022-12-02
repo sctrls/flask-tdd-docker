@@ -15,7 +15,7 @@ build:
     CI_DEBUG_TRACE: "true"
     DOCKER_DRIVER: overlay2
   script:
-    - echo "$CI_JOB_TOKEN" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker pull $IMAGE:latest || true
     - docker build
         --cache-from $IMAGE:latest
@@ -23,7 +23,6 @@ build:
         --file ./Dockerfile.prod
         "."
     - docker push $IMAGE:latest
-
 
 test:
   stage: test
@@ -35,10 +34,9 @@ test:
     POSTGRES_DB: users
     POSTGRES_USER: runner
     POSTGRES_PASSWORD: runner
-    DATABASE_TEST_URL: postgresql://runner?runner@postgres:5432/users
+    DATABASE_TEST_URL: postgresql://runner:runner@postgres:5432/users
   script:
-    - pytest "src/tests" - no:warnings
+    - pytest "src/tests" -p no:warnings
     - flake8 src
     - black src --check
     - isort src --check-only
-
