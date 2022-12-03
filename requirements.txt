@@ -1,18 +1,6 @@
 flask==2.1.1
 flask-restx==0.5.1
-werkzeug==2.1.2
 Flask-SQLAlchemy==2.5.1
-psycopg2-binary==2.9.3
-
-# server
 gunicorn==20.1.0
-
-# testing
-pytest==7.1.1
-pytest-cov==3.0.0
-pytest-xdist==2.5.0
-
-# linting and formatting
-flake8==4.0.1
-black==22.3.0
-isort==5.10.1
+psycopg2-binary==2.9.3
+werkzeug==2.1.2s
