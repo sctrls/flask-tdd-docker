@@ -31,6 +31,8 @@ ENV PYTHON DONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV FLASK_ENV production
 ENV APP_SETTINGS src.config.ProductionConfig
+ARG SECRET_KEY
+ENV SECRET_KEY $SECRET_KEY
 
 RUN apt-get update\
   && apt-get -y install netcat gcc postgresql\
