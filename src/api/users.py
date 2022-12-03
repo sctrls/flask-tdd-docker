@@ -63,13 +63,16 @@ class Users(Resource):
         if not user:
             api.abort(404, f"User {user_id} does not exist")
 
+        if User.query.filter_by(email=email).first():
+            response_object["message"] = "Sorry, that email already exists."
+            return response_object, 400
+
         user.username = username
         user.email = email
         db.session.commit()
 
         response_object["message"] = f"{user.id} was updated!"
         return response_object, 200
-
 
     def delete(self, user_id):
         response_object = {}
