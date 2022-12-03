@@ -10,6 +10,7 @@ gunicorn==20.1.0
 # testing
 pytest==7.1.1
 pytest-cov==3.0.0
+pytest-xdist==2.5.0
 
 # linting and formatting
 flake8==4.0.1

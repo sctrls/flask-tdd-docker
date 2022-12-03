@@ -55,7 +55,7 @@ def test_add_user_duplicate_email(test_app, test_database):
     )
     data = json.loads(resp.data.decode())
     assert resp.status_code == 400
-    assert "Sorry. That email already exists." in data["message"]
+    assert "Sorry, that email already exists." in data["message"]
 
 
 def test_single_user(test_app, test_database, add_user):
