@@ -1,8 +1,8 @@
 from flask import Blueprint, request
 from flask_restx import Api, Resource, fields
 
-from src import db
-from src.api.models import User
+# from src import db
+# from src.api.models import User
 from src.api.crud import (  # isort:skip
     get_all_users,
     get_user_by_email,
